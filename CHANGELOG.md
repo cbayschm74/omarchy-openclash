@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented here.
 
+## [2.1.1] - 2026-08-26
+
+- Blocked controller API redirects so Bearer credentials cannot cross origins.
+- Added a 16 MiB streamed limit for controller responses.
+- Hardened configuration and secret reads against symlinks, non-regular files,
+  unsafe permissions, hard links, and oversized content.
+- Added regression tests for the security hardening.
+
 ## [2.1.0] - 2026-08-26
 
 - Added first-run setup for the controller URL, dashboard URL, and secret.
@@ -13,4 +21,5 @@ All notable changes to this project will be documented here.
 - Added dashboard-name detection for common Mihomo dashboards.
 - Added graceful offline handling for private LAN, VPN, and Tailnet setups.
 
+[2.1.1]: https://github.com/cbayschm74/omarchy-openclash/releases/tag/v2.1.1
 [2.1.0]: https://github.com/cbayschm74/omarchy-openclash/releases/tag/v2.1.0

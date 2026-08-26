@@ -107,6 +107,11 @@ rm -r -- ~/.config/omarchy/openclash
   owner-only (`0700`) and both files are owner-readable/writable only (`0600`).
 - The secret is used only as the Bearer token for requests to the configured
   controller. The plugin has no telemetry and contacts no other service.
+- Controller API redirects are rejected, preventing the Bearer token from
+  being forwarded to a redirected origin.
+- API responses are streamed under a 16 MiB ceiling.
+- Saved setup files are opened without following symlinks and must be bounded,
+  owner-only regular files.
 - HTTPS uses Python's normal system certificate validation. Prefer HTTPS when
   the controller crosses an untrusted network.
 - An unreachable controller produces an offline state in the widget. It does

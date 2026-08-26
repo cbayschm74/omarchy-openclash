@@ -30,3 +30,8 @@ and are not sandboxed. This plugin starts a local Python helper and sends
 authenticated requests only to the controller URL entered by the user. It
 does not install packages, use `sudo`, modify network configuration, or send
 telemetry.
+
+The helper rejects controller redirects, streams API responses under a 16 MiB
+limit, and reads setup files through no-follow descriptors. Configuration and
+secret files must be owner-only regular files within their documented size
+limits.
