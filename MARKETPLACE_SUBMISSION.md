@@ -38,9 +38,8 @@ offline.
 
 - [x] The repository is public and contains installation and removal instructions.
 - [x] I have documented the plugin license and any external dependencies.
-- [ ] I confirm that I own or have permission to submit this plugin and its preview assets.
+- [x] I confirm that I own or have permission to submit this plugin and its preview assets.
 - [x] The plugin does not overwrite user configuration without explicit consent.
 - [x] I understand that approval is for listing and is not a security review.
 
-The first checkbox can be checked after the GitHub repository is public. The
-ownership checkbox must be confirmed by the maintainer before submission.
+All checklist statements were confirmed by the maintainer before submission.
