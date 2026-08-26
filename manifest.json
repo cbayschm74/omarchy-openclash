@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "cbayschm.openclash",
+  "name": "OpenClash",
+  "version": "2.1.0",
+  "author": "cbayschm",
+  "license": "MIT",
+  "description": "Control OpenClash proxy groups and servers from the Omarchy bar.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "OpenClash",
+    "description": "Inspect proxy groups, switch servers, and open the configured dashboard.",
+    "category": "Network",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "refreshIntervalSec": 30
+    },
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 10,
+        "max": 3600,
+        "step": 5,
+        "defaultValue": 30
+      }
+    ]
+  }
+}
