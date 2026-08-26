@@ -4,6 +4,8 @@ A native Omarchy bar widget for controlling a remote Mihomo/OpenClash
 instance. Switch traffic modes and proxy groups without opening the full web
 dashboard.
 
+![OpenClash bar widget with server names blurred](preview.png)
+
 ## Features
 
 - Switch between Rule, Global, and Direct traffic modes.
