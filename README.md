@@ -34,7 +34,7 @@ not need to be exposed publicly.
 Install and enable the plugin directly from GitHub:
 
 ```bash
-omarchy plugin add https://github.com/cbayschm/omarchy-openclash.git --enable
+omarchy plugin add https://github.com/cbayschm74/omarchy-openclash.git --enable
 ```
 
 The widget defaults to the right side of the bar. Omarchy clones third-party

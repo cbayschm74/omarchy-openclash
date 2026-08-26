@@ -13,4 +13,4 @@ All notable changes to this project will be documented here.
 - Added dashboard-name detection for common Mihomo dashboards.
 - Added graceful offline handling for private LAN, VPN, and Tailnet setups.
 
-[2.1.0]: https://github.com/cbayschm/omarchy-openclash/releases/tag/v2.1.0
+[2.1.0]: https://github.com/cbayschm74/omarchy-openclash/releases/tag/v2.1.0

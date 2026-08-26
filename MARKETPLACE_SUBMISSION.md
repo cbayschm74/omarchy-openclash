@@ -12,7 +12,7 @@ plugin marketplace submission form.
 
 ### Repository URL
 
-https://github.com/cbayschm/omarchy-openclash
+https://github.com/cbayschm74/omarchy-openclash
 
 ### Category
 
