@@ -147,6 +147,7 @@ Panel {
     iconComponent: Component {
       Text {
         text: "󰒍"
+        textFormat: Text.PlainText
         color: root.barIconColor
         font.family: root.fontFamily
         font.pixelSize: Style.font.icon
@@ -188,16 +189,19 @@ Panel {
 
         PanelHero {
           width: parent.width
-          title: selectedGroup && !editingSetup ? selectedGroup.name : "OpenClash"
+          // PanelHero uses Text.AutoText internally, so keep controller-derived
+          // strings out of it and render them in the explicit plain-text label below.
+          title: "OpenClash"
           meta: !openclash.configured ? "Setup required"
                 : (editingSetup ? "Connection setup"
-                   : (selectedGroup ? selectedGroup.now
+                   : (selectedGroup ? "Proxy group"
                       : (openclash.online ? openclash.groups.length + " proxy groups" : "Offline")))
           foreground: root.foreground
           fontFamily: root.fontFamily
           iconComponent: Component {
             Text {
               text: selectedGroup && !editingSetup ? "󰒍" : "󰇧"
+              textFormat: Text.PlainText
               color: openclash.configured && openclash.online ? root.foreground : root.dim
               font.family: root.fontFamily
               font.pixelSize: Style.font.display
@@ -206,9 +210,22 @@ Panel {
         }
 
         Text {
+          visible: selectedGroup !== null && !root.editingSetup
+          width: parent.width
+          text: selectedGroup ? String(selectedGroup.name || "") + " · " + String(selectedGroup.now || "") : ""
+          textFormat: Text.PlainText
+          color: root.foreground
+          font.family: root.fontFamily
+          font.pixelSize: Style.font.title
+          font.bold: true
+          elide: Text.ElideRight
+        }
+
+        Text {
           visible: openclash.actionStatus !== "" || openclash.lastError !== ""
           width: parent.width
           text: openclash.actionStatus !== "" ? openclash.actionStatus : openclash.lastError
+          textFormat: Text.PlainText
           color: openclash.lastError !== "" && openclash.actionStatus === "" ? root.urgent : root.dim
           font.family: root.fontFamily
           font.pixelSize: Style.font.bodySmall
@@ -269,6 +286,7 @@ Panel {
           Text {
             width: parent.width
             text: "Controller URL"
+            textFormat: Text.PlainText
             color: root.foreground
             font.family: root.fontFamily
             font.pixelSize: Style.font.bodySmall
@@ -285,6 +303,7 @@ Panel {
           Text {
             width: parent.width
             text: "Dashboard URL (optional)"
+            textFormat: Text.PlainText
             color: root.foreground
             font.family: root.fontFamily
             font.pixelSize: Style.font.bodySmall
@@ -300,6 +319,7 @@ Panel {
           Text {
             width: parent.width
             text: "The button name is detected from known dashboard URLs; custom dashboards use the generic Dashboard label."
+            textFormat: Text.PlainText
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.caption
@@ -309,6 +329,7 @@ Panel {
           Text {
             width: parent.width
             text: openclash.configured ? "Controller secret (leave blank to keep current)" : "Controller secret"
+            textFormat: Text.PlainText
             color: root.foreground
             font.family: root.fontFamily
             font.pixelSize: Style.font.bodySmall
@@ -326,6 +347,7 @@ Panel {
           Text {
             width: parent.width
             text: "The controller is tested before anything is saved. The secret is sent to the helper over stdin and stored with owner-only permissions."
+            textFormat: Text.PlainText
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.caption
@@ -429,6 +451,7 @@ Panel {
 
               Text {
                 text: "Lowest ping first"
+                textFormat: Text.PlainText
                 color: root.foreground
                 font.family: root.fontFamily
                 font.pixelSize: Style.font.body
@@ -436,6 +459,7 @@ Panel {
 
               Text {
                 text: root.sortByPing ? "Sorted by measured latency" : "Using normal provider order"
+                textFormat: Text.PlainText
                 color: root.dim
                 font.family: root.fontFamily
                 font.pixelSize: Style.font.caption
@@ -463,6 +487,7 @@ Panel {
             visible: selectedGroup && root.searchText === "" && selectedGroup.all.length > 120
             width: parent.width
             text: "Showing the first 120 reachable servers. Search to find any server."
+            textFormat: Text.PlainText
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.caption
@@ -488,6 +513,7 @@ Panel {
             visible: root.visibleCandidates.length === 0
             width: parent.width
             text: "No matching servers"
+            textFormat: Text.PlainText
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.body
@@ -517,6 +543,7 @@ Panel {
       id: actionText
       anchors.centerIn: parent
       text: actionButton.busy ? "…" : actionButton.label
+      textFormat: Text.PlainText
       color: root.foreground
       font.family: root.fontFamily
       font.pixelSize: Style.font.bodySmall
@@ -562,6 +589,7 @@ Panel {
         Text {
           Layout.fillWidth: true
           text: proxyRow.title
+          textFormat: Text.PlainText
           color: root.foreground
           font.family: root.fontFamily
           font.pixelSize: Style.font.body
@@ -576,6 +604,7 @@ Panel {
           Text {
             Layout.fillWidth: true
             text: proxyRow.subtitle
+            textFormat: Text.PlainText
             color: root.dim
             font.family: root.fontFamily
             font.pixelSize: Style.font.caption
@@ -585,6 +614,7 @@ Panel {
           Text {
             visible: proxyRow.subtitlePing > 0
             text: String(proxyRow.subtitlePing) + " ms"
+            textFormat: Text.PlainText
             color: root.pingColor(proxyRow.subtitlePing)
             font.family: root.fontFamily
             font.pixelSize: Style.font.caption
@@ -594,6 +624,7 @@ Panel {
 
       Text {
         text: proxyRow.busy ? "…" : (proxyRow.ping > 0 ? String(proxyRow.ping) + " ms" : proxyRow.trailing)
+        textFormat: Text.PlainText
         color: proxyRow.ping > 0 ? root.pingColor(proxyRow.ping)
                                  : (proxyRow.active ? root.foreground : root.dim)
         font.family: root.fontFamily
