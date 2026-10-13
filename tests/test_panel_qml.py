@@ -23,6 +23,10 @@ class PanelTextSecurityTests(unittest.TestCase):
                 + " must opt out of rich-text auto-detection",
             )
 
+    def test_theme_colors_are_qualified_against_qtquick_color_collision(self):
+        self.assertRegex(self.panel, r"(?m)^import qs\.Commons as Commons$")
+        self.assertNotRegex(self.panel, r"(?<![\w.])Color\.")
+
     def test_shared_panel_hero_never_receives_controller_names(self):
         hero = re.search(r"\bPanelHero\s*\{(?P<body>.*?)\n\s*iconComponent\s*:", self.panel, re.DOTALL)
         self.assertIsNotNone(hero)

@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import qs.Commons
+import qs.Commons as Commons
 import qs.Ui
 
 Panel {
@@ -19,8 +20,8 @@ Panel {
   property string setupController: ""
   property string setupDashboard: ""
   property string setupSecret: ""
-  readonly property color foreground: bar ? bar.foreground : Color.foreground
-  readonly property color urgent: bar ? bar.urgent : Color.urgent
+  readonly property color foreground: bar ? bar.foreground : Commons.Color.foreground
+  readonly property color urgent: bar ? bar.urgent : Commons.Color.urgent
   readonly property color dim: Qt.darker(foreground, 1.55)
   readonly property string fontFamily: bar ? bar.fontFamily : Style.font.family
   readonly property color barIconColor: openclash.configured && openclash.online ? barForeground : Qt.darker(barForeground, 1.55)
@@ -533,8 +534,8 @@ Panel {
     implicitWidth: actionText.implicitWidth + Style.space(18)
     implicitHeight: Style.space(30)
     radius: Style.cornerRadius
-    color: selected ? Style.selectedFillFor(root.foreground, Color.accent)
-                    : (actionMouse.containsMouse ? Style.hoverFillFor(root.foreground, Color.accent) : "transparent")
+    color: selected ? Style.selectedFillFor(root.foreground, Commons.Color.accent)
+                    : (actionMouse.containsMouse ? Style.hoverFillFor(root.foreground, Commons.Color.accent) : "transparent")
     border.width: 1
     border.color: Qt.rgba(root.foreground.r, root.foreground.g, root.foreground.b, 0.22)
     opacity: enabled ? 1.0 : 0.5
@@ -572,8 +573,8 @@ Panel {
 
     implicitHeight: Math.max(Style.space(46), rowContent.implicitHeight + Style.space(12))
     radius: Style.cornerRadius
-    color: active ? Style.selectedFillFor(root.foreground, Color.accent)
-                  : (rowMouse.containsMouse ? Style.hoverFillFor(root.foreground, Color.accent) : "transparent")
+    color: active ? Style.selectedFillFor(root.foreground, Commons.Color.accent)
+                  : (rowMouse.containsMouse ? Style.hoverFillFor(root.foreground, Commons.Color.accent) : "transparent")
 
     RowLayout {
       id: rowContent

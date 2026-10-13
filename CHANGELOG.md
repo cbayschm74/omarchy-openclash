@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented here.
 
+## 2.1.3 - 2026-10-13
+
+- Qualify Omarchy theme colors as `Commons.Color` to avoid the new QtQuick
+  `Color` singleton introduced in Qt 6.12, while supporting earlier Qt.
+- Add a regression check that rejects ambiguous theme-color references.
+
+Validated with the test suite, plugin validation and the installed Qt 6.11
+shell. Qt 6.12 runtime validation remains pending.
+
 ## [2.1.2] - 2026-08-27
 
 - Forced every plugin-owned QML `Text` item to render as plain text.
