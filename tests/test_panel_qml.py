@@ -27,6 +27,14 @@ class PanelTextSecurityTests(unittest.TestCase):
         self.assertRegex(self.panel, r"(?m)^import qs\.Commons as Commons$")
         self.assertNotRegex(self.panel, r"(?<![\w.])Color\.")
 
+    def test_production_qml_never_instantiates_native_editable_fields(self):
+        for path in PANEL_PATH.parent.glob("*.qml"):
+            code = re.sub(r"//[^\n]*", "", path.read_text())
+            self.assertNotRegex(code, r"\b(?:TextField|TextInput|TextEdit|TextArea)\s*\{", str(path))
+        self.assertEqual(len(re.findall(r"\bSafeTextField\s*\{", self.panel)), 4)
+        self.assertEqual(self.panel.count("onPasteRequested:"), 4)
+        self.assertEqual(self.panel.count("inputActive: root.opened"), 4)
+
     def test_shared_panel_hero_never_receives_controller_names(self):
         hero = re.search(r"\bPanelHero\s*\{(?P<body>.*?)\n\s*iconComponent\s*:", self.panel, re.DOTALL)
         self.assertIsNotNone(hero)

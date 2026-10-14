@@ -95,6 +95,7 @@ Panel {
     setupSecret = ""
     editingSetup = true
     if (panelFlick) panelFlick.contentY = 0
+    Qt.callLater(function() { if (root.opened) controllerField.forceActiveFocus() })
   }
 
   function submitSetup() {
@@ -118,9 +119,13 @@ Panel {
     showGroups()
     openclash.loadSetup()
     if (openclash.configured) openclash.refresh()
+  } else {
+    setupSecret = ""
+    editingSetup = false
   }
 
   Service { id: openclash; settings: root.settings }
+  ClipboardReader { id: clipboardReader }
 
   Connections {
     target: openclash
@@ -169,6 +174,7 @@ Panel {
     owner: root
     bar: root.bar
     open: root.opened
+    focusTarget: !openclash.configured || root.editingSetup ? controllerField : (root.selectedGroup !== null ? searchField : null)
     contentWidth: panel.fittedContentWidth(Style.space(420))
     contentHeight: panel.fittedContentHeight(contentColumn.implicitHeight, Style.space(610))
 
@@ -293,12 +299,15 @@ Panel {
             font.pixelSize: Style.font.bodySmall
           }
 
-          TextField {
+          SafeTextField {
             id: controllerField
             width: parent.width
             placeholderText: "https://openclash.example.net"
             text: root.setupController
-            onTextChanged: root.setupController = text
+            inputActive: root.opened && (!openclash.configured || root.editingSetup)
+            onEdited: function(value) { root.setupController = value }
+            onPasteRequested: clipboardReader.paste(controllerField)
+            onEscapeRequested: root.close()
           }
 
           Text {
@@ -310,11 +319,15 @@ Panel {
             font.pixelSize: Style.font.bodySmall
           }
 
-          TextField {
+          SafeTextField {
+            id: dashboardField
             width: parent.width
             placeholderText: "https://openclash.example.net/ui/"
             text: root.setupDashboard
-            onTextChanged: root.setupDashboard = text
+            inputActive: root.opened && (!openclash.configured || root.editingSetup)
+            onEdited: function(value) { root.setupDashboard = value }
+            onPasteRequested: clipboardReader.paste(dashboardField)
+            onEscapeRequested: root.close()
           }
 
           Text {
@@ -336,12 +349,17 @@ Panel {
             font.pixelSize: Style.font.bodySmall
           }
 
-          TextField {
+          SafeTextField {
+            id: secretField
             width: parent.width
             placeholderText: openclash.configured ? "Saved secret unchanged" : "Required"
             password: true
+            maximumLength: 4096
             text: root.setupSecret
-            onTextChanged: root.setupSecret = text
+            inputActive: root.opened && (!openclash.configured || root.editingSetup)
+            onEdited: function(value) { root.setupSecret = value }
+            onPasteRequested: clipboardReader.paste(secretField)
+            onEscapeRequested: root.close()
             onAccepted: root.submitSetup()
           }
 
@@ -477,11 +495,16 @@ Panel {
             }
           }
 
-          TextField {
+          SafeTextField {
+            id: searchField
             width: parent.width
             placeholderText: "Search " + (selectedGroup ? selectedGroup.all.length : 0) + " reachable servers…"
             text: root.searchText
-            onTextChanged: root.searchText = text
+            maximumLength: 256
+            inputActive: root.opened && openclash.configured && !root.editingSetup && root.selectedGroup !== null
+            onEdited: function(value) { root.searchText = value }
+            onPasteRequested: clipboardReader.paste(searchField)
+            onEscapeRequested: root.close()
           }
 
           Text {

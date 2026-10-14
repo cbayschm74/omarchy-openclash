@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "cbayschm.openclash",
   "name": "OpenClash",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "author": "cbayschm",
   "license": "MIT",
   "description": "Control OpenClash proxy groups and servers from the Omarchy bar.",

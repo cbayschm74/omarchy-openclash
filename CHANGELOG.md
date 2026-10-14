@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented here.
 
+## 2.1.4 - 2026-10-14
+
+- Replace all four native editable fields with bounded single-line Item/Text
+  controls, avoiding Qt 6.12's automatic clipboard reads even while hidden.
+- Read clipboard text only on Ctrl+V using an isolated helper with an aggregate
+  8 KiB byte cap and a one-second transfer/process deadline. Reject multiline,
+  control-character, invalid UTF-8, oversized, slow and failed clipboard data.
+- Discard paste results after editing, focus changes, hiding or panel closure.
+  Clear an unsaved secret when the panel closes.
+- Cover streaming/trickle providers, typing, selections, password masking,
+  external text resets, tab focus and late paste results in Python, JS and QML
+  tests. QML tests use theme/process stubs; Qt 6.12 runtime testing is pending.
+
 ## 2.1.3 - 2026-10-13
 
 - Qualify Omarchy theme colors as `Commons.Color` to avoid the new QtQuick

@@ -31,6 +31,16 @@ dashboard.
 The controller may be available only over a LAN, VPN, or Tailscale. It does
 not need to be exposed publicly.
 
+Setup and search use bounded single-line fields rather than native editable Qt
+controls. Click a field to focus it at the end, type normally, use arrow keys,
+Home/End, Backspace/Delete, Shift selection, Ctrl+A and Tab/Shift+Tab. Ctrl+V
+reads text through `wl-paste` (normally installed on Omarchy) only on that
+explicit keypress, with an 8 KiB byte cap and a one-second deadline. Slow,
+oversized or multiline pastes fail without blocking the shell. Controller and
+dashboard URLs are limited to 2048 UTF-16 units, the secret to 4096, and search
+to 256. Mouse selection, native context menus, copy/cut, undo and input-method
+composition are not implemented in these fields; committed key text is supported.
+
 ## Install
 
 Install and enable the plugin directly from GitHub:
